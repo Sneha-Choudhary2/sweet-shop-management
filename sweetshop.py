@@ -1,6 +1,7 @@
 class SweetShop:
     def __init__(self):
-        self.sweets = {} # Stores sweets by ID
+        self.sweets = {}
 
-    # No main function or other methods yet.
+    def add_sweet(self, sweet):
+        self.sweets[sweet["id"]] = sweet # Minimal implementation
     

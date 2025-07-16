@@ -12,6 +12,13 @@ class TestSweetShop(unittest.TestCase):
         self.shop.add_sweet(sweet) # This method doesn't exist yet, so it will fail
         self.assertIn(sweet["id"], self.shop.sweets)
         self.assertEqual(self.shop.sweets["1"], sweet)
+        
+    def test_add_sweet_with_missing_fields(self):
+        # Test adding a sweet with missing required fields
+        incomplete_sweet = {"id": "2", "name": "Gummy Bears"} # Missing category, price, quantity
+        with self.assertRaises(ValueError) as cm:
+            self.shop.add_sweet(incomplete_sweet)
+        self.assertIn("Missing required field:", str(cm.exception))
 
 if __name__ == '__main__':
     unittest.main()

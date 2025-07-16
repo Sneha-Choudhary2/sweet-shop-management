@@ -28,6 +28,14 @@ class TestSweetShop(unittest.TestCase):
             self.shop.add_sweet(sweet) # Try to add it again
         self.assertEqual(str(cm.exception), f"Sweet with ID {sweet['id']} already exists.")
 
+    def test_delete_sweet_basic(self):
+        # Test deleting an existing sweet
+        sweet = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        self.shop.add_sweet(sweet)
+        result = self.shop.delete_sweet("1") # This method doesn't exist yet
+        self.assertEqual(result, "Sweet deleted successfully.")
+        self.assertNotIn("1", self.shop.sweets)
+
 
 if __name__ == '__main__':
     unittest.main()

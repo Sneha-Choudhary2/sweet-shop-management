@@ -88,6 +88,15 @@ class TestSweetShop(unittest.TestCase):
         self.assertIn("1", results)
         self.assertIn("2", results)
         self.assertNotIn("3", results)
+
+    def test_search_sweets_no_results(self):
+        sweet1 = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        self.shop.add_sweet(sweet1)
+        results = self.shop.search_sweets(name="Lollipop")
+        self.assertEqual(len(results), 0)
+    def test_search_sweets_empty_shop(self):
+        results = self.shop.search_sweets(name="any")
+        self.assertEqual(len(results), 0)
 if __name__ == '__main__':
     unittest.main()
     

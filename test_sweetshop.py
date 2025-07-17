@@ -42,6 +42,15 @@ class TestSweetShop(unittest.TestCase):
             self.shop.delete_sweet("nonexistent_id")
         self.assertEqual(str(cm.exception), "Sweet not found.")
 
+    def test_view_sweets_basic(self):
+        # Test viewing available sweets
+        sweet1 = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        sweet2 = {"id": "2", "name": "Gummy Bears", "category": "Candy", "price": 1.75, "quantity": 150}
+        self.shop.add_sweet(sweet1)
+        self.shop.add_sweet(sweet2)
+        available_sweets = self.shop.view_sweets() # This method doesn't exist yet
+        self.assertEqual(available_sweets, {"1": sweet1, "2": sweet2})
+
 
 if __name__ == '__main__':
     unittest.main()

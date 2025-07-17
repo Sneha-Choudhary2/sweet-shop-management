@@ -41,3 +41,15 @@ class SweetShop:
             if name and name.lower() in sweet_details['name'].lower():
                 results[sweet_id] = sweet_details
         return results
+    
+    def search_sweets(self, name=None, category=None, price_range=None):
+        results = {}
+        for sweet_id, sweet_details in self.sweets.items():
+            match = True
+            if name and name.lower() not in sweet_details['name'].lower():
+                match = False
+            if category and category.lower() != sweet_details['category'].lower():
+                match = False
+            if match: # Only add if all conditions met so far
+                results[sweet_id] = sweet_details
+        return results

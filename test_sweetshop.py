@@ -57,6 +57,16 @@ class TestSweetShop(unittest.TestCase):
             self.shop.view_sweets()
         self.assertEqual(str(cm.exception), "No sweets available in the shop.")
 
+    def test_search_sweets_by_name(self):
+        sweet1 = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        sweet2 = {"id": "2", "name": "White Chocolate", "category": "Chocolate", "price": 3.00, "quantity": 50}
+        self.shop.add_sweet(sweet1)
+        self.shop.add_sweet(sweet2)
+        results = self.shop.search_sweets(name="chocolate") # This method doesn't exist yet
+        self.assertEqual(len(results), 2)
+        self.assertIn("1", results)
+        self.assertIn("2", results)
+
 
 if __name__ == '__main__':
     unittest.main()

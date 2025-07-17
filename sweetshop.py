@@ -93,3 +93,7 @@ class SweetShop:
             
         sweet['quantity'] -= quantity
         return "Sweet purchased successfully."
+    
+    def restock_sweet(self, sweet_id, quantity):
+        self.sweets[sweet_id]['quantity'] += quantity # Minimal implementation, assumes ID exists
+        return "Sweet restocked successfully."

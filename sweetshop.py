@@ -82,3 +82,14 @@ class SweetShop:
             
         sweet['quantity'] -= quantity
         return "Sweet purchased successfully."
+    
+    def purchase_sweet(self, sweet_id, quantity):
+        if sweet_id not in self.sweets:
+            raise ValueError("Sweet not found.")
+            
+        sweet = self.sweets[sweet_id]
+        if sweet['quantity'] < quantity:
+            raise ValueError("Not enough stock available.")
+            
+        sweet['quantity'] -= quantity
+        return "Sweet purchased successfully."

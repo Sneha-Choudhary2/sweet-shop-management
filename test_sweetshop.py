@@ -76,7 +76,18 @@ class TestSweetShop(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertIn("2", results)
 
-
+    def test_search_sweets_by_price_range(self):
+        sweet1 = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        sweet2 = {"id": "2", "name": "White Chocolate", "category": "Chocolate", "price": 3.00, "quantity": 50}
+        sweet3 = {"id": "3", "name": "Gummy Bears", "category": "Candy", "price": 1.75, "quantity": 150}
+        self.shop.add_sweet(sweet1)
+        self.shop.add_sweet(sweet2)
+        self.shop.add_sweet(sweet3)
+        results = self.shop.search_sweets(price_range=(2.00, 3.00))
+        self.assertEqual(len(results), 2)
+        self.assertIn("1", results)
+        self.assertIn("2", results)
+        self.assertNotIn("3", results)
 if __name__ == '__main__':
     unittest.main()
     

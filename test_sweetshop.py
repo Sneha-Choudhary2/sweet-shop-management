@@ -67,6 +67,15 @@ class TestSweetShop(unittest.TestCase):
         self.assertIn("1", results)
         self.assertIn("2", results)
 
+    def test_search_sweets_by_category(self):
+        sweet1 = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        sweet2 = {"id": "2", "name": "Gummy Bears", "category": "Candy", "price": 1.75, "quantity": 150}
+        self.shop.add_sweet(sweet1)
+        self.shop.add_sweet(sweet2)
+        results = self.shop.search_sweets(category="Candy")
+        self.assertEqual(len(results), 1)
+        self.assertIn("2", results)
+
 
 if __name__ == '__main__':
     unittest.main()

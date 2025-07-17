@@ -35,5 +35,5 @@ This project is a Sweet Shop Management System designed as an assessment. The sy
 
 ### Clone the Repository
 ```bash
-git clone <repository-url-will-be-here>
+git clone <https://github.com/Sneha-Choudhary2/sweet-shop-management>
 cd sweet-shop-management-system

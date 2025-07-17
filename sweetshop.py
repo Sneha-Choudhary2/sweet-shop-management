@@ -29,3 +29,8 @@ class SweetShop:
 
     def view_sweets(self):
         return self.sweets # Minimal implementation
+    
+    def view_sweets(self):
+        if not self.sweets:
+            raise ValueError("No sweets available in the shop.")
+        return self.sweets

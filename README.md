@@ -20,6 +20,9 @@ The Sweet Shop Management System is developed using Test-Driven Development (TDD
 
 ![Delete Sweet](images/delete_sweet.png)
 
+**Alternative Delete View:**  
+![Delete Sweet 2](images/delete_sweet_2.png)
+
 ---
 
 ### View Sweets  
@@ -60,5 +63,5 @@ The Sweet Shop Management System is developed using Test-Driven Development (TDD
 
 ### Clone the Repository
 ```bash
-git clone <https://github.com/Sneha-Choudhary2/sweet-shop-management>
+git clone https://github.com/Sneha-Choudhary2/sweet-shop-management
 cd sweet-shop-management-system

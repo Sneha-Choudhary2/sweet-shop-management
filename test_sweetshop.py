@@ -35,6 +35,12 @@ class TestSweetShop(unittest.TestCase):
         result = self.shop.delete_sweet("1") # This method doesn't exist yet
         self.assertEqual(result, "Sweet deleted successfully.")
         self.assertNotIn("1", self.shop.sweets)
+    
+    def test_delete_nonexistent_sweet(self):
+        # Test deleting a sweet that does not exist
+        with self.assertRaises(ValueError) as cm:
+            self.shop.delete_sweet("nonexistent_id")
+        self.assertEqual(str(cm.exception), "Sweet not found.")
 
 
 if __name__ == '__main__':

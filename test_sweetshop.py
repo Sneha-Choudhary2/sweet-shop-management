@@ -97,6 +97,14 @@ class TestSweetShop(unittest.TestCase):
     def test_search_sweets_empty_shop(self):
         results = self.shop.search_sweets(name="any")
         self.assertEqual(len(results), 0)
+
+    def test_purchase_sweet_basic(self):
+            # Test purchasing an available sweet
+        sweet = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        self.shop.add_sweet(sweet)
+        result = self.shop.purchase_sweet("1", 10) # This method doesn't exist yet
+        self.assertEqual(result, "Sweet purchased successfully.")
+        self.assertEqual(self.shop.sweets["1"]["quantity"], 90)
 if __name__ == '__main__':
     unittest.main()
     

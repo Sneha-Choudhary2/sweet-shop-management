@@ -10,6 +10,14 @@ class SweetShop:
 
         if sweet["id"] in self.sweets:
             raise ValueError(f"Sweet with ID {sweet['id']} already exists.")
-
+        
+        
         self.sweets[sweet["id"]] = sweet
-    
+
+    def delete_sweet(self, sweet_id):
+        if sweet_id not in self.sweets:
+            raise ValueError(f"Sweet with ID {sweet_id} not found.")
+            
+        del self.sweets[sweet_id]
+        return "Sweet deleted successfully."
+

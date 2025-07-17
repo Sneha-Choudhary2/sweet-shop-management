@@ -50,6 +50,12 @@ class TestSweetShop(unittest.TestCase):
         self.shop.add_sweet(sweet2)
         available_sweets = self.shop.view_sweets() # This method doesn't exist yet
         self.assertEqual(available_sweets, {"1": sweet1, "2": sweet2})
+    
+    def test_view_no_sweets_available(self):
+        # Test viewing sweets when none are available
+        with self.assertRaises(ValueError) as cm:
+            self.shop.view_sweets()
+        self.assertEqual(str(cm.exception), "No sweets available in the shop.")
 
 
 if __name__ == '__main__':

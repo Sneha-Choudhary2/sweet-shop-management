@@ -1,32 +1,57 @@
-# Sweet Shop Management System in Python - Incubyte Assessment
+# Sweet Shop Management System in Python 
 
 ## Introduction
-This project is a Sweet Shop Management System designed as an assessment. The system is developed using Test-Driven Development (TDD) principles, ensuring that all implemented features are thoroughly tested for reliability.
+The Sweet Shop Management System is developed using Test-Driven Development (TDD) principles, ensuring that all implemented features are thoroughly tested for reliability.
 
 ## Features
-- **Add Sweets:**
-  - Allows users to add new sweets to the shop with validation.
-  - Ensures that sweets with duplicate IDs are not added.
-  - Validates that all required fields (ID, name, category, price, quantity) are present.
 
-- **Delete Sweets:**
-  - Allows users to remove sweets from the shop.
-  - Validates that the sweet exists before deletion.
+### Add Sweets  
+- Allows users to add new sweets to the shop with validation.  
+- Ensures that sweets with duplicate IDs are not added.  
+- Validates that all required fields (ID, name, category, price, quantity) are present.  
 
-- **View Sweets:**
-  - Allows users to view a list of all available sweets in the shop.
-  - Validates and raises an error if no sweets are available.
+![Add Sweet](images/add_sweet.png)
 
-- **Search Sweets:**
-  - Allows users to search for sweets by name, category, or price range.
+---
 
-- **Purchase Sweets:**
-  - Allows users to "purchase" sweets, decreasing their quantity in stock.
-  - Validates that the sweet is available and there is sufficient stock.
+### Delete Sweets  
+- Allows users to remove sweets from the shop.  
+- Validates that the sweet exists before deletion.  
 
-- **Restock Sweets:**
-  - Allows users to increase the quantity of sweets in stock.
-  - Validates that the sweet exists before restocking.
+![Delete Sweet](images/delete_sweet.png)
+
+---
+
+### View Sweets  
+- Allows users to view a list of all available sweets in the shop.  
+- Validates and raises an error if no sweets are available.  
+
+![View Sweets](images/sweet_shop_management.png)
+
+---
+
+### Search Sweets  
+- Allows users to search for sweets by name, category, or price range.  
+
+![Search Sweet](images/search_sweet.png)
+
+---
+
+### Purchase Sweets  
+- Allows users to "purchase" sweets, decreasing their quantity in stock.  
+- Validates that the sweet is available and there is sufficient stock.  
+
+![Purchase Sweet](images/purchase_sweet.png)
+
+---
+
+### Restock Sweets  
+- Allows users to increase the quantity of sweets in stock.  
+- Validates that the sweet exists before restocking.  
+
+![Restock Sweet](images/restock_sweet.png)
+
+---
 
 ## Requirements
 - Python 3.x

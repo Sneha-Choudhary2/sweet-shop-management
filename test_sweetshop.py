@@ -115,6 +115,12 @@ class TestSweetShop(unittest.TestCase):
         self.assertEqual(str(cm.exception), "Not enough stock available.")
         self.assertEqual(self.shop.sweets["1"]["quantity"], 5) # Quantity should remain unchanged
 
+    def test_purchase_nonexistent_sweet(self):
+            # Test purchasing a sweet that does not exist
+        with self.assertRaises(ValueError) as cm:
+            self.shop.purchase_sweet("nonexistent_id", 5)
+        self.assertEqual(str(cm.exception), "Sweet not found.")
+
 if __name__ == '__main__':
     unittest.main()
     

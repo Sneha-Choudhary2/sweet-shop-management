@@ -69,3 +69,8 @@ class SweetShop:
             if match:
                 results[sweet_id] = sweet_details
         return results
+    
+    def purchase_sweet(self, sweet_id, quantity):
+        sweet = self.sweets[sweet_id] # Minimal implementation, assumes ID and sufficient quantity
+        sweet['quantity'] -= quantity
+        return "Sweet purchased successfully."

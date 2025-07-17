@@ -34,3 +34,10 @@ class SweetShop:
         if not self.sweets:
             raise ValueError("No sweets available in the shop.")
         return self.sweets
+    
+    def search_sweets(self, name=None, category=None, price_range=None):
+        results = {}
+        for sweet_id, sweet_details in self.sweets.items():
+            if name and name.lower() in sweet_details['name'].lower():
+                results[sweet_id] = sweet_details
+        return results

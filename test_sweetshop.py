@@ -120,7 +120,14 @@ class TestSweetShop(unittest.TestCase):
         with self.assertRaises(ValueError) as cm:
             self.shop.purchase_sweet("nonexistent_id", 5)
         self.assertEqual(str(cm.exception), "Sweet not found.")
-
+    
+    def test_restock_sweet_basic(self):
+            # Test restocking an existing sweet
+        sweet = {"id": "1", "name": "Chocolate Bar", "category": "Chocolate", "price": 2.50, "quantity": 100}
+        self.shop.add_sweet(sweet)
+        result = self.shop.restock_sweet("1", 50) # This method doesn't exist yet
+        self.assertEqual(result, "Sweet restocked successfully.")
+        self.assertEqual(self.shop.sweets["1"]["quantity"], 150)
 if __name__ == '__main__':
     unittest.main()
     

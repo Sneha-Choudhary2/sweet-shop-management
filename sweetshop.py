@@ -95,5 +95,11 @@ class SweetShop:
         return "Sweet purchased successfully."
     
     def restock_sweet(self, sweet_id, quantity):
-        self.sweets[sweet_id]['quantity'] += quantity # Minimal implementation, assumes ID exists
+        if sweet_id not in self.sweets:
+            raise ValueError("Sweet not found.")
+            
+        self.sweets[sweet_id]['quantity'] += quantity
         return "Sweet restocked successfully."
+        
+    
+    

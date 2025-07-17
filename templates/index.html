@@ -1,0 +1,73 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Shop</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        h1, h2 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #eee; }
+        .button { padding: 8px 12px; margin-right: 5px; text-decoration: none; background-color: #007bff; color: white; border-radius: 4px; display: inline-block; }
+        .button.red { background-color: #dc3545; }
+        .flash-message { padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        .flash-message.success { background-color: #d4edda; color: #155724; }
+        .flash-message.error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Sweet Shop!</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <p>
+        <a href="{{ url_for('add_sweet_page') }}" class="button">Add New Sweet</a>
+        <a href="{{ url_for('search_sweets_page') }}" class="button">Search Sweets</a>
+    </p>
+
+    <h2>Available Sweets</h2>
+    {% if sweets %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sweet_id, sweet in sweets.items() %}
+            <tr>
+                <td>{{ sweet.id }}</td>
+                <td>{{ sweet.name }}</td>
+                <td>{{ sweet.category }}</td>
+                <td>${{ sweet.price | round(2) }}</td>
+                <td>{{ sweet.quantity }}</td>
+                <td>
+                    <a href="{{ url_for('purchase_sweet_page', sweet_id=sweet.id) }}" class="button">Purchase</a>
+                    <a href="{{ url_for('restock_sweet_page', sweet_id=sweet.id) }}" class="button">Restock</a>
+                    <form action="{{ url_for('delete_sweet_action', sweet_id=sweet.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="button red" onclick="return confirm('Delete {{ sweet.name }}?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No sweets available yet. Add some!</p>
+    {% endif %}
+</body>
+</html>

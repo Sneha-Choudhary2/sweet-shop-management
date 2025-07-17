@@ -1,0 +1,79 @@
+<!-- templates/search_sweets.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Sweets</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        h1, h2 { color: #333; }
+        form { margin-top: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"] { width: 250px; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        select { width: 268px; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #eee; }
+        .button { padding: 8px 12px; margin-right: 5px; text-decoration: none; background-color: #007bff; color: white; border-radius: 4px; display: inline-block; }
+        .flash-message { padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        .flash-message.error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Search Sweets</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('search_sweets_page') }}" method="POST">
+        <label for="search_type">Search By:</label>
+        <select id="search_type" name="search_type">
+            <option value="name">Name</option>
+            <option value="category">Category</option>
+            <option value="price_range">Price Range (e.g., 10-20)</option>
+        </select><br>
+
+        <label for="query">Search Query:</label>
+        <input type="text" id="query" name="query" required><br>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Search Results</h2>
+    {% if results %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sweet_id, sweet in results.items() %}
+            <tr>
+                <td>{{ sweet.id }}</td>
+                <td>{{ sweet.name }}</td>
+                <td>{{ sweet.category }}</td>
+                <td>${{ sweet.price | round(2) }}</td>
+                <td>{{ sweet.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No sweets found matching your criteria, or no search performed.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('index') }}" class="button">Back to Home</a></p>
+</body>
+</html>

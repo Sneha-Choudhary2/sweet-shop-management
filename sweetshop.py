@@ -58,116 +58,118 @@ class SweetShop:
         self.sweets[sweet_id]['quantity'] += quantity
         return "Sweet restocked successfully."
 
-    def main():
-        shop = SweetShop()
+# --- IMPORTANT: main() function starts HERE, OUTSIDE the class ---
+def main(): # <--- This is now a global function, not a method
+    shop = SweetShop()
 
-        while True:
-            print("\nSweet Shop Management System")
-            print("A. Add Sweet")
-            print("V. View All Sweets")
-            print("D. Delete Sweet")
-            print("S. Search Sweets")
-            print("P. Purchase Sweet")
-            print("R. Restock Sweet")
-            print("E. Exit")
+    while True:
+        print("\nSweet Shop Management System")
+        print("A. Add Sweet")
+        print("V. View All Sweets")
+        print("D. Delete Sweet")
+        print("S. Search Sweets")
+        print("P. Purchase Sweet")
+        print("R. Restock Sweet")
+        print("E. Exit")
 
-            choice = input("Enter your choice (A, V, D, S, P, R, E): ").upper()
+        choice = input("Enter your choice (A, V, D, S, P, R, E): ").upper()
 
-            if choice == "A":
-                sweet_id = input("Enter Sweet ID: ")
-                name = input("Enter Name: ")
-                category = input("Enter Category: ")
-                try:
-                    price = float(input("Enter Price: "))
-                    quantity = int(input("Enter Quantity: "))
-                    sweet = {"id": sweet_id, "name": name, "category": category, "price": price, "quantity": quantity}
-                    shop.add_sweet(sweet)
-                    print(f"Sweet '{name}' added successfully.")
-                except ValueError as ve:
-                    print(f"Invalid input: {ve}. Please ensure price and quantity are numbers.")
-                except Exception as e:
-                    print(f"Error: {e}")
+        if choice == "A":
+            sweet_id = input("Enter Sweet ID: ")
+            name = input("Enter Name: ")
+            category = input("Enter Category: ")
+            try:
+                price = float(input("Enter Price: "))
+                quantity = int(input("Enter Quantity: "))
+                sweet = {"id": sweet_id, "name": name, "category": category, "price": price, "quantity": quantity}
+                shop.add_sweet(sweet)
+                print(f"Sweet '{name}' added successfully.")
+            except ValueError as ve:
+                print(f"Invalid input: {ve}. Please ensure price and quantity are numbers.")
+            except Exception as e:
+                print(f"Error: {e}")
 
-            elif choice == "V":
-                try:
-                    all_sweets = shop.view_sweets()
-                    print("\n--- Available Sweets ---")
-                    for sweet_id, details in all_sweets.items():
+        elif choice == "V":
+            try:
+                all_sweets = shop.view_sweets()
+                print("\n--- Available Sweets ---")
+                for sweet_id, details in all_sweets.items():
+                    print(f"ID: {sweet_id}, Name: {details['name']}, Category: {details['category']}, Price: ${details['price']:.2f}, Quantity: {details['quantity']}")
+                print("------------------------")
+            except Exception as e:
+                print(f"Error: {e}")
+
+        elif choice == "D":
+            sweet_id = input("Enter ID of the sweet to delete: ")
+            try:
+                result = shop.delete_sweet(sweet_id)
+                print(result)
+            except Exception as e:
+                print(f"Error: {e}")
+
+        elif choice == "S":
+            print("\nSearch Options:")
+            print("1. By Name")
+            print("2. By Category")
+            print("3. By Price Range")
+            search_choice = input("Enter search option (1, 2, or 3): ")
+            try:
+                results = {}
+                if search_choice == "1":
+                    name = input("Enter name to search: ")
+                    results = shop.search_sweets(name=name)
+                elif search_choice == "2":
+                    category = input("Enter category to search: ")
+                    results = shop.search_sweets(category=category)
+                elif search_choice == "3":
+                    min_price = float(input("Enter minimum price: "))
+                    max_price = float(input("Enter maximum price: "))
+                    results = shop.search_sweets(price_range=(min_price, max_price))
+                else:
+                    print("Invalid search option.")
+                    continue
+
+                if not results:
+                    print("No sweets found matching your criteria.")
+                else:
+                    print("\n--- Search Results ---")
+                    for sweet_id, details in results.items():
                         print(f"ID: {sweet_id}, Name: {details['name']}, Category: {details['category']}, Price: ${details['price']:.2f}, Quantity: {details['quantity']}")
-                    print("------------------------")
-                except Exception as e:
-                    print(f"Error: {e}")
+                    print("----------------------")
+            except ValueError:
+                print("Invalid input for price range. Please enter numbers.")
+            except Exception as e:
+                print(f"Error: {e}")
 
-            elif choice == "D":
-                sweet_id = input("Enter ID of the sweet to delete: ")
-                try:
-                    result = shop.delete_sweet(sweet_id)
-                    print(result)
-                except Exception as e:
-                    print(f"Error: {e}")
+        elif choice == "P":
+            sweet_id = input("Enter ID of the sweet to purchase: ")
+            try:
+                quantity = int(input("Enter quantity to purchase: "))
+                result = shop.purchase_sweet(sweet_id, quantity)
+                print(result)
+            except ValueError as ve:
+                print(f"Error: {ve}")
+            except Exception as e:
+                print(f"Error: {e}")
 
-            elif choice == "S":
-                print("\nSearch Options:")
-                print("1. By Name")
-                print("2. By Category")
-                print("3. By Price Range")
-                search_choice = input("Enter search option (1, 2, or 3): ")
-                try:
-                    results = {}
-                    if search_choice == "1":
-                        name = input("Enter name to search: ")
-                        results = shop.search_sweets(name=name)
-                    elif search_choice == "2":
-                        category = input("Enter category to search: ")
-                        results = shop.search_sweets(category=category)
-                    elif search_choice == "3":
-                        min_price = float(input("Enter minimum price: "))
-                        max_price = float(input("Enter maximum price: "))
-                        results = shop.search_sweets(price_range=(min_price, max_price))
-                    else:
-                        print("Invalid search option.")
-                        continue
+        elif choice == "R":
+            sweet_id = input("Enter ID of the sweet to restock: ")
+            try:
+                quantity = int(input("Enter quantity to restock: "))
+                result = shop.restock_sweet(sweet_id, quantity)
+                print(result)
+            except ValueError as ve:
+                print(f"Error: {ve}")
+            except Exception as e:
+                print(f"Error: {e}")
 
-                    if not results:
-                        print("No sweets found matching your criteria.")
-                    else:
-                        print("\n--- Search Results ---")
-                        for sweet_id, details in results.items():
-                            print(f"ID: {sweet_id}, Name: {details['name']}, Category: {details['category']}, Price: ${details['price']:.2f}, Quantity: {details['quantity']}")
-                        print("----------------------")
-                except ValueError:
-                    print("Invalid input for price range. Please enter numbers.")
-                except Exception as e:
-                    print(f"Error: {e}")
+        elif choice == "E":
+            print("Exiting the Sweet Shop Management System.")
+            break
 
-            elif choice == "P":
-                sweet_id = input("Enter ID of the sweet to purchase: ")
-                try:
-                    quantity = int(input("Enter quantity to purchase: "))
-                    result = shop.purchase_sweet(sweet_id, quantity)
-                    print(result)
-                except ValueError as ve:
-                    print(f"Error: {ve}")
-                except Exception as e:
-                    print(f"Error: {e}")
+        else:
+            print("Invalid choice. Please enter a valid option.")
 
-            elif choice == "R":
-                sweet_id = input("Enter ID of the sweet to restock: ")
-                try:
-                    quantity = int(input("Enter quantity to restock: "))
-                    result = shop.restock_sweet(sweet_id, quantity)
-                    print(result)
-                except ValueError as ve:
-                    print(f"Error: {ve}")
-                except Exception as e:
-                    print(f"Error: {e}")
-
-            elif choice == "E":
-                print("Exiting the Sweet Shop Management System.")
-                break
-
-            else:
-                print("Invalid choice. Please enter a valid option.")
-
-    if __name__ == "__main__":
-        main()
+# This block correctly calls the global main() function
+if __name__ == "__main__":
+    main()

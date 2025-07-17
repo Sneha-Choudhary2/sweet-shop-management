@@ -20,4 +20,10 @@ class SweetShop:
             
         del self.sweets[sweet_id]
         return "Sweet deleted successfully."
+    
+    def delete_sweet(self, sweet_id):
+        if sweet_id not in self.sweets:
+            raise ValueError("Sweet not found.")
+        del self.sweets[sweet_id]
+        return "Sweet deleted successfully."
 

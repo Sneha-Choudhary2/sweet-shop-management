@@ -27,3 +27,5 @@ class SweetShop:
         del self.sweets[sweet_id]
         return "Sweet deleted successfully."
 
+    def view_sweets(self):
+        return self.sweets # Minimal implementation
